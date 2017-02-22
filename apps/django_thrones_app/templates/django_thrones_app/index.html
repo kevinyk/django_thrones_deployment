@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.error{
+			color:red;
+		}
+		.success{
+			color:green;
+		}
+	</style>
+</head>
+<body>
+<h2>Hello Westeros</h2>
+<h3>Create a Person</h3>
+{% if messages %}
+	{% for message in messages %}
+		<p class={{message.tags}}>{{message}}</p>
+	{% endfor %}
+{% endif %}
+<form method='POST' action="/persons">
+	{% csrf_token %}
+	<p>First Name: <input type="text" name="first_name"></p>
+	<p>Last Name: <input type="text" name="last_name"></p>
+	<p>House: <input type="text" name="house"></p>
+	Deceased? <select name="deceased">
+		<option default>True</option>
+		<option>False</option>		
+	</select>
+	<p>Favorite Weapon: <input type="text" name="fav_weapon"></p>
+	<p>Kill Count: <input type="number" name="kill_count"></p>
+	<input type="submit" name="">
+
+</form>
+<h2>List of all people:</h2>
+<table>
+	<tr>
+		<td>First Name</td>
+		<td>Last Name</td>
+		<td>House</td>
+		<td>Deceased</td>
+		<td>Favorite Weapon</td>
+		<td>Kill Count</td>
+		<td>Created At</td>
+	</tr>
+	{% for individual in people %}
+		<tr>
+			<td>{{individual.first_name}}</td>
+			<td>{{individual.last_name}}</td>
+			<td>{{individual.house}}</td>
+			<td>{{individual.deceased}}</td>
+			<td>{{individual.favorite_weapon}}</td>
+			<td>{{individual.kill_count}}</td>
+			<td>{{individual.created_at}}</td>
+		</tr>
+	{% endfor %}
+</table>
+</body>
+</html>
